@@ -9,6 +9,6 @@ $path = '../views/';
 		if(file_exists($filename)) {
 			include $path.$page.".php";
 		} else {
-			include $path.'404.php';
+			include $path.'error/404.php';
 		}
 	}
