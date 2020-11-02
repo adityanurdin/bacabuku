@@ -2,7 +2,7 @@
 
 
 $server   = 'localhost';
-$database = 'database.bacabuku';
+$database = 'dummy';
 $user     = 'root';
 $pass     = '';
 
