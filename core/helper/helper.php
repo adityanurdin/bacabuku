@@ -62,7 +62,7 @@
 		return $_SERVER['SERVER_NAME'];
 	}
 
-	function route($page)
+	function route($page, $dir = '')
 	{
-		return base_url() . '/../../public/index.php?page=' . $page;
+		return base_url() . '/../../public/'.$dir.'index.php?page=' . $page;
 	}
