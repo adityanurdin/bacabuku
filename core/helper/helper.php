@@ -1,21 +1,66 @@
 <?php
 
-	// session_start();
+	session_start();
 	
 	require_once '../database/setup.php';
 	require_once '../core/config.php';
-	
-	// if(!isset($_SESSION['id'])) {
-	// 	header("location: ../login.php?pesan=Session anda tidak valid");
-	// }
+
+
 	function create($koneksi , $sql) 
 	{
-		require_once '../database/setup.php';
+		require '../database/setup.php';
 		
 		$query = mysqli_query($koneksi , $sql);
 		
 		return $query;
 		
+	}
+
+	function check_auth()
+	{
+		if(isset($_SESSION['id'])) {
+			return '<script type="text/javascript">location.href = "'.route('home').'";</script>';
+		}
+	}
+
+	function check_session() {
+		if(!isset($_SESSION['id'])) {
+			return '<script type="text/javascript">location.href = "'.route('login').'";</script>';
+		}
+	}
+
+	function get_user()
+	{
+		if(isset($_SESSION['id'])) {
+
+			require '../database/setup.php';
+
+			$id = $_SESSION['id'];
+			$query = " SELECT * FROM users where id='$id'";
+			$sql   = mysqli_query($koneksi , $query) or die(mysqli_error());
+			$data  = mysqli_fetch_assoc($sql);
+
+			return 'Hi, ' . $data['nama'];
+		} else {
+			return 'Account';
+		}
+	}
+
+	function get_role()
+	{
+		if(isset($_SESSION['id'])) {
+
+			require '../database/setup.php';
+
+			$id = $_SESSION['id'];
+			$query = " SELECT * FROM users where id='$id'";
+			$sql   = mysqli_query($koneksi , $query) or die(mysqli_error());
+			$data  = mysqli_fetch_assoc($sql);
+
+			return $data['role'];
+		} else {
+			return 'user';
+		}
 	}
 
 	function page_title()
@@ -65,4 +110,32 @@
 	function route($page, $dir = '')
 	{
 		return base_url() . '/../../public/'.$dir.'index.php?page=' . $page;
+	}
+
+	function process($target)
+	{
+		$target_file = '../core/process/process_' . $target . '.php';
+		if (file_exists($target_file)) {
+			return $target_file;
+		} else {
+			return route('error/404');
+		}
+	}
+
+	function getBaseUrl() 
+	{
+		// output: /myproject/index.php
+		$currentPath = $_SERVER['PHP_SELF']; 
+
+		// output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index ) 
+		$pathInfo = pathinfo($currentPath); 
+
+		// output: localhost
+		$hostName = $_SERVER['HTTP_HOST']; 
+
+		// output: http://
+		$protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https'?'https':'http';
+
+		// return: http://localhost/myproject/
+		return $protocol.'://'.$hostName.$pathInfo['dirname']."/";
 	}
