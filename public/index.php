@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="<?= asset('bootstrap/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
      <!-- icon -->
     <link rel="shortcut icon" href="<?= asset('img/logo/logo.jpg') ?>" type="image/x-icon">
 
@@ -25,6 +28,13 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
     <link rel="stylesheet" href="<?= asset('css/components.css') ?>">
+
+    <style>
+      .app-name {
+        font-family: 'Poppins', sans-serif !important;
+        font-weight: 600 !important;
+      }
+    </style>
 
 </head>
 <body class="layout-3">

@@ -1,6 +1,6 @@
 <div class="navbar-bg"></div>
       <nav class="navbar navbar-expand-lg main-navbar">
-        <a href="<?= route('home') ?>" class="navbar-brand sidebar-gone-hide"><?= env('APP_NAME') ?></a>
+        <a href="<?= route('home') ?>" class="navbar-brand sidebar-gone-hide app-name"><?= env('APP_NAME') ?></a>
         <a href="#" class="nav-link sidebar-gone-show mt-4" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
         <!-- <div class="nav-collapse">
           <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
