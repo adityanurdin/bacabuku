@@ -91,7 +91,7 @@
               <?php
                   if(isset($_SESSION['id'])) {
                     echo '
-                      <a href="'.route('profile').'" class="dropdown-item has-icon">
+                      <a href="'.route('profile&sub_page=my-profile').'" class="dropdown-item has-icon">
                         <i class="far fa-user"></i> My Profile
                       </a>
                     ';
