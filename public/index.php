@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="<?= asset('dataTables/css/dataTables.bootstrap4.min.css') ?>">
     <link rel="stylesheet" href="<?= asset('css/select2.min.css') ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/summernote/summernote-bs4.css">
+    <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/jquery-selectric/selectric.css">
+
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
@@ -57,23 +60,6 @@
           <li class="nav-item <?= active_menu('author') ?>">
             <a href="<?= route('author') ?>" class="nav-link"><i class="fas fa-users"></i><span>Author</span></a>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="far fa-clone"></i><span>Multiple Dropdown</span></a>
-            <ul class="dropdown-menu">
-              <li class="nav-item"><a href="#" class="nav-link">Not Dropdown Link</a></li>
-              <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Hover Me</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                  <li class="nav-item dropdown"><a href="#" class="nav-link has-dropdown">Link 2</a>
-                    <ul class="dropdown-menu">
-                      <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                      <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                      <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                    </ul>
-                  </li>
-                  <li class="nav-item"><a href="#" class="nav-link">Link 3</a></li>
-                </ul>
-              </li> -->
               </ul>
             </li>
           </ul>
@@ -129,6 +115,30 @@
     <script src="<?= asset('dataTables/js/jquery.dataTables.min.js') ?>"></script>
     <script src="<?= asset('dataTables/js/dataTables.bootstrap4.min.js') ?>"></script>
     <script src="<?= asset('js/select2.full.min.js') ?>"></script>
+    <script src="https://demo.getstisla.com/assets/modules/summernote/summernote-bs4.js"></script>
+    <script src="https://demo.getstisla.com/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
+    <script src="https://demo.getstisla.com/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
+
+    <!-- JS -->
+    <script>
+      $('#table-buku-ku').DataTable({
+        "bLengthChange": false,
+        "iDisplayLength": 25,
+      })
+    </script>
+    <script>
+      $("select").selectric();
+      $.uploadPreview({
+        input_field: "#image-upload",   // Default: .image-upload
+        preview_box: "#image-preview",  // Default: .image-preview
+        label_field: "#image-label",    // Default: .image-label
+        label_default: "Choose File",   // Default: Choose File
+        label_selected: "Change File",  // Default: Change File
+        no_label: false,                // Default: false
+        success_callback: null          // Default: null
+      });
+      $(".inputtags").tagsinput('items');
+    </script>
 </body>
 </html>
 
