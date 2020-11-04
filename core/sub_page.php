@@ -10,6 +10,6 @@ $path = '../views/';
 		if(file_exists($filename)) {
 			include $path.'/sub_page/'.$sub_page.'.php';
 		} else {
-			include $path.'/sub_page/my-profile.php';
+			include $path.'error/404.php';
 		}
 	}

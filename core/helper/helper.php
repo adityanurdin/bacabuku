@@ -6,7 +6,7 @@
 	require_once '../core/config.php';
 
 
-	function create($koneksi , $sql) 
+	function query($sql) 
 	{
 		require '../database/setup.php';
 		
@@ -40,7 +40,7 @@
 			$sql   = mysqli_query($koneksi , $query) or die(mysqli_error());
 			$data  = mysqli_fetch_assoc($sql);
 
-			return 'Hi, ' . $data['nama'];
+			return  $data['nama'];
 		} else {
 			return 'Account';
 		}
@@ -70,9 +70,18 @@
 		return $GLOBALS['page-title'] = ucfirst($page);
 	}
 
+	function sub_page_title()
+	{
+		// Title browser
+		$page = (isset($_GET['sub_page'])) ? $_GET['sub_page'] : '';
+		return $GLOBALS['page-title'] = ucfirst($page);
+	}
+
 	function active_menu($menu)
 	{
 		if (page_title() == ucfirst($menu)) {
+			return 'active';
+		} else if (sub_page_title() == ucfirst($menu)) {
 			return 'active';
 		} else {
 			return '';
