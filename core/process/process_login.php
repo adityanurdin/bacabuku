@@ -25,6 +25,8 @@ if ($check > 0) {
             header("location: ../../public/index.php?page=home");
         } else if ($data['role'] == 'author') {
             header("location: ../../public/index.php?page=home");
+        } else {
+            header("location: ../../public/index.php?page=home");
         }
 
     } else {
