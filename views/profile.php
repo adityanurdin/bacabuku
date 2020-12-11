@@ -10,8 +10,21 @@
                   <div class="card-body">
                     <ul class="nav nav-pills flex-column">
                       <li class="nav-item"><a href="<?= route('profile&sub_page=my-profile') ?>" class="nav-link <?= active_menu('my-profile') ?>">My Profile</a></li>
-                      <li class="nav-item"><a href="<?= route('profile&sub_page=edit-profile') ?>" class="nav-link <?= active_menu('edit-profile') ?>">Edit Profile</a></li>
-                      <li class="nav-item"><a href="<?= route('profile&sub_page=buku-ku') ?>" class="nav-link  <?= active_menu('buku-ku') ?>">Buku Ku</a></li>
+                      <!-- <li class="nav-item"><a href="<?= route('profile&sub_page=edit-profile') ?>" class="nav-link <?= active_menu('edit-profile') ?>">Edit Profile</a></li> -->
+                      <?php
+                        if (get_role() == 'author' OR get_role() == 'admin') {
+                          echo '
+                          <li class="nav-item"><a href="'.route('profile&sub_page=buku-ku').'" class="nav-link '.active_menu('buku-ku').'">Buku Ku</a></li>
+                          ';
+                        }
+                      ?>
+                      <?php
+                        if (get_role() == 'admin') {
+                          echo '
+                          <li class="nav-item"><a href="'.route('profile&sub_page=users').'" class="nav-link '.active_menu('users').'">Users</a></li>
+                          ';
+                        }
+                      ?>
                     </ul>
                   </div>
                 </div>

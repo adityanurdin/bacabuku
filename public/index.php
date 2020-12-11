@@ -1,4 +1,12 @@
 <?php include_once('../core/helper/helper.php') ?>
+<?php
+
+    echo check_role();
+
+    $query_kategori = " SELECT * FROM categories ";
+    $sql_kategori   = query($query_kategori);
+
+?>
 
 
 <!DOCTYPE html>
@@ -26,6 +34,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/summernote/summernote-bs4.css">
     <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/jquery-selectric/selectric.css">
+    <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+    <link rel="stylesheet" href="https://demo.getstisla.com/assets/modules/chocolat/dist/css/chocolat.css">
 
 
     <!-- Template CSS -->
@@ -51,17 +61,41 @@
       <nav class="navbar navbar-secondary navbar-expand-lg">
         <div class="container">
           <ul class="navbar-nav">
-          <li class="nav-item <?= active_menu('home') ?>">
-              <a href="<?= route('home') ?>" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
-          </li>
-          <li class="nav-item <?= active_menu('categories') ?>">
-            <a href="<?= route('categories') ?>" class="nav-link"><i class="fas fa-list"></i><span>Categories</span></a>
-          </li>
-          <li class="nav-item <?= active_menu('author') ?>">
-            <a href="<?= route('author') ?>" class="nav-link"><i class="fas fa-users"></i><span>Author</span></a>
-          </li>
+
+            <li class="nav-item <?= active_menu('home') ?>">
+                <a href="<?= route('home') ?>" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a href="#" data-toggle="dropdown" class="nav-link has-dropdown"><i class="fas fa-list"></i><span>Categories</span></a>
+              <ul class="dropdown-menu">
+              <?php
+              
+              if (mysqli_num_rows($sql_kategori) > 0) {
+                while($item = mysqli_fetch_assoc($sql_kategori)) {
+                  echo '
+                    <li class="nav-item"><a href="'.route('home&kategori=' . $item['slug_kategori']).'" class="nav-link">'.ucfirst($item['nama_kategori']).'</a></li>
+                  ';
+                }
+              }
+              
+              ?>
               </ul>
             </li>
+
+            <!-- <li class="nav-item <?= active_menu('categories') ?>">
+              <a href="<?= route('categories') ?>" class="nav-link"><i class="fas fa-list"></i><span>Categories</span></a>
+            </li> -->
+
+            <!-- <li class="nav-item <?= active_menu('author') ?>">
+              <a href="<?= route('author') ?>" class="nav-link"><i class="fas fa-users"></i><span>Author</span></a>
+            </li> -->
+
+            <li class="nav-item <?= active_menu('tentang-kami') ?>">
+              <a href="<?= route('tentang-kami') ?>" class="nav-link"><i class="fas fa-info"></i><span>About Us</span></a>
+            </li>
+
+
           </ul>
         </div>
       </nav>
@@ -90,10 +124,10 @@
 
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; <?= date('Y') ?>  <div class="bullet"></div> Develop By <a href="#">Baca Buku Teams</a>
+          Copyright &copy; <?= date('Y') ?>  <div class="bullet"></div> Develop By <a href="<?= route('tentang-kami') ?>">Baca Buku Teams</a>
         </div>
         <div class="footer-right">
-          Version 0.1
+          Version 0.2
         </div>
       </footer>
 
@@ -118,6 +152,8 @@
     <script src="https://demo.getstisla.com/assets/modules/summernote/summernote-bs4.js"></script>
     <script src="https://demo.getstisla.com/assets/modules/jquery-selectric/jquery.selectric.min.js"></script>
     <script src="https://demo.getstisla.com/assets/modules/upload-preview/assets/js/jquery.uploadPreview.min.js"></script>
+    <script src="https://demo.getstisla.com/assets/modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="https://demo.getstisla.com/assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
 
     <!-- JS -->
     <script>
@@ -125,11 +161,15 @@
         "bLengthChange": false,
         "iDisplayLength": 25,
       })
+      $('#table-users').DataTable({
+        "bLengthChange": false,
+        "iDisplayLength": 25,
+      })
     </script>
     <script>
       $("select").selectric();
       $.uploadPreview({
-        input_field: "#image-upload",   // Default: .image-upload
+        input_field: "#fileToUpload",   // Default: .image-upload
         preview_box: "#image-preview",  // Default: .image-preview
         label_field: "#image-label",    // Default: .image-label
         label_default: "Choose File",   // Default: Choose File
@@ -138,6 +178,19 @@
         success_callback: null          // Default: null
       });
       $(".inputtags").tagsinput('items');
+    </script>
+    <script>
+      $('#btn-simpan').on('click', function(e) {
+        e.preventDefault()
+        var radios = document.getElementsByName('exampleRadios');
+
+        for (var i = 0, length = radios.length; i < length; i++) {
+          if (radios[i].checked) {
+            location.href = '../core/process/process_edit_role.php?id=<?=$data['id']?>&role=' + radios[i].value
+            break;
+          }
+        }
+      })
     </script>
 </body>
 </html>

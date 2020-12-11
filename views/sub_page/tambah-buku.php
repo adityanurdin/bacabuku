@@ -1,5 +1,7 @@
 <?php
 
+    echo check_role();
+
     $query_kategori = " SELECT * FROM categories ";
     $sql_kategori   = query($query_kategori);
 
@@ -53,12 +55,40 @@
         <textarea name="" class="summernote"></textarea>
     </div>
 
-    <div class="form-group">
-        <label for="">Cover Buku</label>
-        <div id="image-preview" class="image-preview">
-            <label for="image-upload" id="image-label">Choose File</label>
-            <input type="file" name="image" id="image-upload" />
+    <div class="row">
+    
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="">Tags</label>
+                <input type="text" class="form-control inputtags">
+                <small>Pisahkan dengan koma (,)</small>
+            </div>
+            <div class="form-group">
+                <div class="control-label">Options</div>
+
+                <label class="custom-switch mt-2">
+                <input type="checkbox" checked name="custom-switch-checkbox" class="custom-switch-input">
+                <span class="custom-switch-indicator"></span>
+                <span class="custom-switch-description">Simpan sebagai draft</span>
+                </label>
+
+            </div>
         </div>
+
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label for="">Cover Buku</label>
+                <div id="image-preview" class="image-preview">
+                    <label for="image-upload" id="image-label">Choose File</label>
+                    <input type="file" name="image" id="image-upload" />
+                </div>
+            </div>           
+        </div>
+
     </div>
 
+</div>
+<div class="card-footer bg-whitesmoke text-md-right">
+    <a href="<?= route('profile&sub_page=buku-ku') ?>" class="btn btn-secondary">back</a>
+    <button class="btn btn-primary" type="submit">Save Changes</button>
 </div>

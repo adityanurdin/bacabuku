@@ -23,10 +23,21 @@
 		}
 	}
 
-	function check_session() {
+	function check_session() 
+	{
 		if(!isset($_SESSION['id'])) {
 			return '<script type="text/javascript">location.href = "'.route('login').'";</script>';
 		}
+	}
+
+	function check_role()
+	{
+		// if (isset($_SESSION['id'])) {
+		// 	if (get_role() != 'author') {
+		// 		return '<script type="text/javascript">location.href = "'.route('profile&sub_page=my-profile').'";</script>';
+		// 		exit;
+		// 	}
+		// }
 	}
 
 	function get_user()
@@ -46,6 +57,27 @@
 		}
 	}
 
+	function get_user_by_id($id)
+	{
+		require '../database/setup.php';
+		$query = " SELECT * FROM users where id='$id'";
+		$sql   = mysqli_query($koneksi , $query) or die(mysqli_error());
+		$data  = mysqli_fetch_assoc($sql);
+
+		return  $data['nama'];
+	}
+
+	function get_kategori($id)
+	{
+		require '../database/setup.php';
+
+		$query = " SELECT * FROM categories WHERE id='$id' ";
+		$sql   = mysqli_query($koneksi, $query) or die(mysqli_error($koneksi));
+		$data  = mysqli_fetch_assoc($sql);
+
+		return $data['nama_kategori'];
+	}
+
 	function get_role()
 	{
 		if(isset($_SESSION['id'])) {
@@ -63,10 +95,22 @@
 		}
 	}
 
+	function get_role_by_id($id)
+	{
+		require '../database/setup.php';
+
+		$query = " SELECT * FROM users where id='$id'";
+		$sql   = mysqli_query($koneksi , $query) or die(mysqli_error());
+		$data  = mysqli_fetch_assoc($sql);
+
+		return $data['role'];
+	}
+
 	function page_title()
 	{
 		// Title browser
 		$page = (isset($_GET['page'])) ? $_GET['page'] : '';
+		// $page = str_replace('-', ' ', $page);
 		return $GLOBALS['page-title'] = ucfirst($page);
 	}
 
@@ -121,13 +165,19 @@
 		return base_url() . '/../../public/'.$dir.'index.php?page=' . $page;
 	}
 
-	function process($target)
+	function process($target, $param = NULL)
 	{
 		$target_file = '../core/process/process_' . $target . '.php';
-		if (file_exists($target_file)) {
-			return $target_file;
+		$alt_target_file = '../core/process/process_' . $target . '.php?' . $param;
+
+		if ($param == NULL) {
+			if (file_exists($target_file)) {
+				return $target_file;
+			} else {
+				return route('error/404');
+			}
 		} else {
-			return route('error/404');
+			return $alt_target_file;
 		}
 	}
 
