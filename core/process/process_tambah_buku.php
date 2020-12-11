@@ -78,12 +78,12 @@ if ( $status_upload == 1 ) {
         if ($sql) {
             header("location: ../../public/index.php?page=profile&sub_page=buku-ku&info=Berhasil menambahkan buku");
         } else {
-            header("location: ../../public/index.php?page=tambah-buku&info=Gagal menambahkan buku");
+            header("location: ../../public/index.php?page=tambah-buku&info=Gagal, System Error");
         }
 
     } else {
-        header("location: ../../public/index.php?page=tambah-buku&info=Gagal menambahkan buku");
+        header("location: ../../public/index.php?page=tambah-buku&info=Gagal, Upload foto error");
     }
 } else {
-    header("location: ../../public/index.php?page=tambah-buku&info=Gagal menambahkan buku");
+    header("location: ../../public/index.php?page=tambah-buku&info=Gagal, Foto belum diupload");
 }
